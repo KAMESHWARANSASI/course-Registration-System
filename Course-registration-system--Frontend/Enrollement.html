@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrolment Student</title>
+    <style>
+        td {
+            background-color: aliceblue;
+        }
+
+        body {
+            padding: 50px;
+        }
+        td{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+      <table  align="center" border="1">
+        <tr style="background-color: coral; color: aliceblue;">
+            <th > Id</th>
+            <th>Name </th>
+            <th>Email ID</th>
+            <th>Course name/th>
+        </tr>
+
+        <tbody align="center" id="coursetable">
+        </tbody>
+    </table>
+
+    <script>
+        window.onload = function () {
+            showCourse()
+        }
+
+        function showCourse() {
+            fetch("http://localhost:8080/Course/Registry")
+                .then((response) => response.json())
+                .then((data) => {
+
+                    console.log("Resive data:", data)
+
+                    const courseTable = document.getElementById("coursetable")
+
+                
+
+                data.forEach(course => {
+                        var row= `<tr> 
+                                        <td>${course.Id}</td>
+                                        <td>${course.name}</td>
+                                        <td>${course.emailId}</td>
+                                        <td>${course.courseName}</td>
+                                   </tr>`
+
+                        courseTable.innerHTML += row;
+                    });
+
+                })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Course</title>
+
+    <style>
+        td {
+            background-color: aliceblue;
+        }
+
+        body {
+            padding: 50px;
+        }
+        td{
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <table  align="center" border="1">
+        <tr style="background-color: coral; color: aliceblue;">
+            <th >Course Id</th>
+            <th>Course Name </th>
+            <th>Trainer</th>
+            <th>Duration in weeks</th>
+        </tr>
+
+        <tbody align="center" id="coursetable">
+        </tbody>
+    </table>
+
+    <script>
+        window.onload = function () {
+            showCourse()
+        }
+
+        function showCourse() {
+            fetch("http://localhost:8080/Course")
+                .then((response) => response.json())
+                .then((data) => {
+
+                    console.log("Resive data:", data)
+
+                    const courseTable = document.getElementById("coursetable")
+
+                
+
+                data.forEach(course => {
+                        var row= `<tr> 
+                                        <td>${course.courseId}</td>
+                                        <td>${course.courseName}</td>
+                                        <td>${course.trainer}</td>
+                                        <td>${course.durationInWeeks}</td>
+                                   </tr>`
+
+                        courseTable.innerHTML += row;
+                    });
+
+                })
+        }
+    </script>
+</body>
+
+</html>
